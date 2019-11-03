@@ -44,6 +44,7 @@ steps:
       **\*.Qeuries.WebApi.zip
       **\*.UI.Web.zip
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    flattenFolders: true
 
 - task: CopyFiles@2
   inputs:
@@ -53,9 +54,9 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\src\PokerLeagueManager.Utilities'
+    SourceFolder: '$(Build.SourcesDirectory)\src\PokerLeagueManager.Utilities\bin\$(buildConfiguration)'
     Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\utilities\bin\Debug'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\utility'
 
 - task: VSTest@2
   inputs:
