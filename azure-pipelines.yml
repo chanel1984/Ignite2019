@@ -53,9 +53,9 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)\src\PokerLeagueManager.Utilities\bin\Debug'
+    SourceFolder: '$(Build.SourcesDirectory)\src\PokerLeagueManager.Utilities'
     Contents: '**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)\utilities'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\utilities\bin\Debug'
 
 - task: PublishBuildArtifacts@1
   inputs:
