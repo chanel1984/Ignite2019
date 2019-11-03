@@ -25,6 +25,7 @@ steps:
   inputs:
     filename: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/BuildAngular.bat'
 
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -32,8 +33,42 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+    
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      **\*.dacpac
+      **\*.Commands.WebApi.zip
+      **\*.Events.WebApi.zip
+      **\*.Qeuries.WebApi.zip
+      **\*.UI.Web.zip
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\deploy'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\deploy'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)\src\PokerLeagueManager.Utilties'
+    Contents: '**'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\utilties'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+
+
 
